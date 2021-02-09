@@ -3,47 +3,52 @@ import java.util.Random;
 
 public class BinarySearch {
 
-    public static int counter = 0;
-    public static int index = 0;
-    public static int number = 0;
+    public static int counter = 0;                  //Counter for comparison
+    public static int index = 0;                    //Index of found element
+    public static int number = 0;                   //Duplicated
 
     public static void main(String[] args) {
         new BinarySearch();
-        System.out.println("Counter = " + counter);
-        System.out.println("index = " + index);
-        System.out.println("Number = " + number);
     }
 
     public BinarySearch() {
         Random rnd = new Random();
         int[] list = new int[20];
+        boolean isfound = false;
         fillArray(list);
         printArray(list);
         Arrays.sort(list);
         printArray(list);
 
-        int x = rnd.nextInt(5);
-        System.out.println(x + " is in the array: " + binarySearch(list, x));
+        int x = rnd.nextInt(10);
+        isfound = binarySearch(list, x);
+        System.out.println(x + " is in the array: " + isfound);
 
-        for(int i = index; i < list.length-1; i++){
-            if(list[i] == list[i+1]){
-                counter++;
-                number++;
-            }else{
-                counter++;
-                break;
+        if(isfound == true){
+            for(int i = index; i < list.length-1; i++){
+                if(list[i] == list[i+1]){
+                    counter++;
+                    number++;
+                }else{
+                    counter++;
+                    break;
+                }
+            }
+
+            for(int i = index; i > 0; i--){
+                if(list[i] == list[i-1]){
+                    counter++;
+                    number++;
+                }else{
+                    counter++;
+                    break;
+                }
             }
         }
 
-        for(int i = index; i > 0; i--){
-            if(list[i] == list[i-1]){
-                counter++;
-                number++;
-            }else{
-                counter++;
-                break;
-            }
-        }
+        System.out.println("Counter = " + counter);
+        System.out.println("index = " + index);
+        System.out.println("Number = " + number);
     }
 
     public void fillArray(int[] list) {
